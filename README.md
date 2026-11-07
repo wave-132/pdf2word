@@ -1,18 +1,71 @@
 # PDF 转 Word
 
-将 PDF 转换为可编辑的 Word 文档，尽可能保留文字格式、表格和图片。
+使用 Python 将 PDF 转换为 Word 文档。支持可编辑模式和保留页面外观的图片模式，转换基于 [pdf2docx](https://github.com/dothinking/pdf2docx) 和 [PyMuPDF](https://github.com/pymupdf/PyMuPDF)。
+
+## 安装
+
+需要 Python 3.10 或更高版本。
+
+1. 克隆项目并进入目录：
+
+   ```bash
+   git clone https://github.com/wave-132/pdf2word.git
+   cd pdf2word
+   ```
+
+2. 创建并激活虚拟环境：
+
+   ```bash
+   python -m venv .venv
+   # Linux / macOS
+   source .venv/bin/activate
+   # Windows PowerShell
+   .venv\Scripts\Activate.ps1
+   ```
+
+3. 安装依赖：
+
+   ```bash
+   python -m pip install -r requirements.txt
+   ```
+
+## 使用方法
+
+默认转换为可编辑的 Word 文档：
 
 ```bash
-python -m pip install -r requirements.txt
 python pdf2word.py input.pdf output.docx
 ```
 
-也可以省略输出路径，默认在输入文件旁生成同名 `.docx`。复杂排版、字体和表格可能与原文件有差异；扫描件需要先进行 OCR。
+省略输出路径时，文件保存在输入 PDF 旁，名称与 PDF 相同：
 
-如果更重视保留原始页面外观，可使用图片模式：
+```bash
+python pdf2word.py input.pdf
+```
+
+路径包含空格时请加引号，例如 `python pdf2word.py "我的文档.pdf" "转换结果.docx"`。输出文件已存在时会被覆盖。
+
+### 保留页面外观
+
+对于复杂排版或扫描件，可以选择图片模式：
 
 ```bash
 python pdf2word.py input.pdf output.docx --mode appearance --dpi 200
 ```
 
-该模式将每页作为图片放入 Word，通常更接近原稿，也适合扫描件，但文字和表格无法直接编辑或搜索，文件可能较大。`--dpi` 范围为 72–300，默认 150；更高分辨率会增加文件大小。默认的 `editable` 模式则尝试保留可编辑文字和表格，但不包含 OCR。
+| 模式 | 适用场景 | 限制 |
+| --- | --- | --- |
+| `editable`（默认） | 需要编辑文字和表格 | 尝试保留格式、表格和图片，复杂排版可能发生变化；不提供 OCR |
+| `appearance` | 希望页面外观更接近原 PDF，包括扫描件 | 每页是一张图片，文字和表格无法直接编辑或搜索；文件可能较大 |
+
+图片模式的 `--dpi` 范围为 72–300，默认为 150；较高的值通常更清晰，但会增加文件大小和转换时间。扫描件如需编辑文字，请先使用 OCR 工具识别。
+
+查看全部参数：
+
+```bash
+python pdf2word.py --help
+```
+
+## 许可证
+
+本项目使用 [Apache License 2.0](LICENSE)。
