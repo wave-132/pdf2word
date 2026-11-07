@@ -68,4 +68,12 @@ python pdf2word.py --help
 
 ## 许可证
 
-本项目使用 [Apache License 2.0](LICENSE)。
+本项目代码使用 [Apache License 2.0](LICENSE)。第三方依赖各自使用其许可证，主要依赖包括：
+
+| 依赖 | 许可证 |
+| --- | --- |
+| [pdf2docx](https://github.com/dothinking/pdf2docx) | MIT |
+| [python-docx](https://github.com/python-openxml/python-docx) | MIT |
+| [PyMuPDF](https://pymupdf.readthedocs.io/en/latest/about.html#license-and-copyright) | AGPL-3.0 或商业许可 |
+
+其他间接依赖也有各自的许可证。分发程序或提供在线服务时，请根据实际使用方式检查所有依赖的许可要求；本项目代码的 Apache 2.0 许可不替代这些要求。
